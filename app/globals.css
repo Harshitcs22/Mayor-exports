@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Core Palette ── */
+  --black:      #000000;
+  --zinc-950:   #09090b;
+  --zinc-900:   #18181b;
+  --zinc-800:   #27272a;
+  --zinc-700:   #3f3f46;
+  --zinc-600:   #52525b;
+  --zinc-500:   #71717a;
+  --zinc-400:   #a1a1aa;
+  --zinc-300:   #d4d4d8;
+  --zinc-200:   #e4e4e7;
+  --zinc-100:   #f4f4f5;
+
+  /* ── Off-white primary text — not blinding pure white ── */
+  --text-primary:   #e4e4e7;   /* zinc-200 */
+  --text-secondary: #a1a1aa;   /* zinc-400 */
+  --text-muted:     #71717a;   /* zinc-500 */
+
+  /* ── Minimal accent — silver, barely present ── */
+  --accent:         rgba(161, 161, 170, 0.6);   /* zinc-400 at 60% */
+  --accent-dim:     rgba(161, 161, 170, 0.08);
+  --border-subtle:  rgba(63,  63,  70,  0.6);   /* zinc-700 */
+  --border-faint:   rgba(39,  39,  42,  0.8);   /* zinc-800 */
+
+  /* ── Glassmorphism ── */
+  --glass-bg:     rgba(9, 9, 11, 0.80);
+  --glass-border: rgba(255, 255, 255, 0.05);
+
+  /* ── Typography Scale ──
+     Display  → Cormorant Garamond (ultra-editorial serif, luxury magazines)
+     Heading  → Playfair Display   (authoritative serif, legacy gravitas)
+     Sans     → Space Grotesk      (UI, labels, body — clean but not techy)
+     Mono     → DM Mono            (certifications, codes, tags only)
+  */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-heading: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-sans:    'Space Grotesk', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--zinc-950);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--zinc-950);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--zinc-950); }
+::-webkit-scrollbar-thumb { background: var(--zinc-800); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--zinc-600); }
+
+/* ── Selection ── */
+::selection {
+  background: rgba(161, 161, 170, 0.2);
+  color: var(--text-primary);
+}
+
+/* ─────────────────────────────────────────
+   TYPOGRAPHY UTILITIES
+───────────────────────────────────────── */
+
+/* Display — hero, cinematic headlines */
+.font-display { font-family: var(--font-display); }
+
+/* Heading — section titles */
+.font-heading { font-family: var(--font-heading); }
+
+/* Mono — labels, tags, certifications only */
+.font-mono { font-family: var(--font-mono); }
+.font-sans { font-family: var(--font-sans); }
+
+/* ── Animations ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+.animate-float { animation: float 7s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────
+   LUXURY DIVIDER — fades at edges, no neon
+───────────────────────────────────────── */
+.divider-luxury {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.2) 25%,
+    rgba(212, 175, 55, 0.2) 75%,
+    transparent 100%
+  );
+  border: none;
+}
+
+/* ─────────────────────────────────────────
+   SECTION LABEL — small monospaced tag
+───────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--zinc-500);
+}
+
+/* ─────────────────────────────────────────
+   TAG CHIP — certifications, product tags
+   Dark zinc border, no white or neon
+───────────────────────────────────────── */
+.tag-chip {
+  font-family: var(--font-mono);
+  font-size: 0.60rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid rgba(63, 63, 70, 0.8);  /* zinc-700 */
+  color: var(--text-muted);
+  background: transparent;
+}
+
+/* ─────────────────────────────────────────
+   CARD — luxury hover: lift + border sheen
+   NO electric glow, NO blue box-shadow
+───────────────────────────────────────── */
+.card-luxury {
+  border: 1px solid rgba(39, 39, 42, 0.9);    /* zinc-800 */
+  transition: border-color 0.5s ease, transform 0.5s ease;
+}
+.card-luxury:hover {
+  border-color: rgba(63, 63, 70, 0.9);         /* zinc-700 — barely perceptible */
+  transform: translateY(-3px);
+}
+
+/* Legacy alias — kept so old code compiles */
+.card-electric-hover {
+  border: 1px solid rgba(39, 39, 42, 0.9);
+  transition: border-color 0.5s ease, transform 0.5s ease;
+}
+.card-electric-hover:hover {
+  border-color: rgba(63, 63, 70, 0.9);
+  transform: translateY(-3px);
+}
+
+/* ─────────────────────────────────────────
+   IMAGE REVEAL — grayscale with slow lift
+───────────────────────────────────────── */
+.grayscale-reveal {
+  filter: grayscale(100%) brightness(0.55);
+  transition: filter 0.8s ease, transform 0.8s ease;
+}
+.grayscale-reveal:hover {
+  filter: grayscale(30%) brightness(0.8);
+  transform: scale(1.025);
+}
+
+/* ─────────────────────────────────────────
+   GRADIENT BORDER (editorial card frame)
+   Uses zinc tones, no neon
+───────────────────────────────────────── */
+.gradient-border {
+  position: relative;
+  background: var(--zinc-900);
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(63,63,70,0.5),
+    rgba(63,63,70,0.1),
+    rgba(63,63,70,0.3)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  border-radius: inherit;
+  pointer-events: none;
+}
