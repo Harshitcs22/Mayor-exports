@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import QuoteModal from "./QuoteModal";
 
 const NAV_LINKS = [
   { label: "Our Craft", href: "#our-craft" },
@@ -15,6 +16,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [quoteOpen, setQuoteOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
@@ -119,6 +121,22 @@ export default function Navbar() {
             >
               Contact
             </motion.button>
+
+            <motion.button
+              id="nav-quote-btn"
+              whileHover={{ scale: 1.01, borderColor: "rgba(161,161,170,0.5)" }}
+              whileTap={{ scale: 0.98 }}
+              className="text-[10px] tracking-[0.28em] uppercase px-5 py-2.5 text-zinc-200 transition-all duration-400"
+              style={{
+                fontFamily: "var(--font-mono)",
+                border: "1px solid rgba(161,161,170,0.25)",
+                background: "rgba(24, 24, 27, 0.5)",
+                cursor: "pointer",
+              }}
+              onClick={() => setQuoteOpen(true)}
+            >
+              Request Quote
+            </motion.button>
           </div>
 
           {/* Mobile Toggle */}
@@ -166,10 +184,24 @@ export default function Navbar() {
               >
                 Contact →
               </button>
+              <button
+                onClick={() => { setMobileOpen(false); setQuoteOpen(true); }}
+                className="text-left text-zinc-300 text-[10px] tracking-[0.28em] uppercase mt-2 py-2"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  background: "none",
+                  border: "1px solid rgba(63,63,70,0.6)",
+                  cursor: "pointer",
+                  paddingLeft: "12px",
+                }}
+              >
+                Request Quote →
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+      <QuoteModal isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} />
     </>
   );
 }

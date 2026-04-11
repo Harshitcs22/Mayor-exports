@@ -1,12 +1,15 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import KineticText from "./KineticText";
+import QuoteModal from "./QuoteModal";
 
 export default function HeroSection() {
   const ref = useRef<HTMLElement>(null);
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -172,22 +175,19 @@ export default function HeroSection() {
           {/* Primary — ghost rectangular button */}
           <motion.button
             id="hero-explore-btn"
-            whileHover={{ borderColor: "rgba(225,225,228,0.45)" }}
+            whileHover={{ borderColor: "rgba(225,225,228,0.45)", background: "rgba(24, 24, 27, 0.4)" }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              const el = document.querySelector("#our-craft");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() => setQuoteOpen(true)}
             className="px-10 py-3.5 text-[10px] tracking-[0.3em] uppercase text-zinc-300"
             style={{
               fontFamily: "var(--font-mono)",
               border: "1px solid rgba(161,161,170,0.22)",
               background: "transparent",
               cursor: "pointer",
-              transition: "border-color 0.4s ease",
+              transition: "border-color 0.4s ease, background 0.4s ease",
             }}
           >
-            Explore Our Divisions
+            Request OEM Quote
           </motion.button>
 
           {/* Secondary — text link */}
@@ -229,6 +229,8 @@ export default function HeroSection() {
           </span>
         </motion.button>
       </motion.div>
+
+      <QuoteModal isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} />
     </section>
   );
 }
